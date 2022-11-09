@@ -2,10 +2,8 @@ import sqlite3
 import pandas as pd
 import os
 
-
 if not os.path.isdir("data/db"):
     os.makedirs("data/db")
-
 
 ## ## ## DOWNLOAD DATA FROM KAGGLE IN data/sources FILE ## ## ##
 ## ## ## PUT KAGGLE FILES IN BELOW DIRECTORY ## ## ##
