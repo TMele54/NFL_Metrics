@@ -15,7 +15,6 @@ def query_db(Q, head=5):
 
     print(rs.head(head))
 
-
 ########################################################################################################################
 games_query = '''
     SELECT 
@@ -59,11 +58,27 @@ games_query = '''
             WHERE G.gameId = "2021101700" 
             ORDER BY P.quarter ASC,  P.gameClock DESC    
 '''
-query_db(games_query)
+#query_db(games_query)
 ########################################################################################################################
 
 ########################################################################################################################
+#CREATE TABLE kinetics AS
 physical_kinetics_query = '''
+    CREATE TABLE kinetics AS     
+        SELECT 
+            *
+            FROM players as P
+            JOIN weekly as W
+                ON P.nflId = W.nflId
+                ORDER BY W.gameId ASC, W.playId ASC
+    
+'''
+#print("Kinetic Setup")
+#query_db(physical_kinetics_query)
+########################################################################################################################
+
+########################################################################################################################
+_query = '''
     SELECT 
         *
         FROM players as P
@@ -71,5 +86,40 @@ physical_kinetics_query = '''
             ON P.nflId = W.nflId
             ORDER BY W.gameId ASC, W.playId ASC 
 '''
-query_db(physical_kinetics_query)
+_query = '''
+    SELECT *
+        FROM weekly as W
+        ORDER BY W.gameId ASC, W.playId ASC 
+        LIMIT 100
+'''
+#print(_query)
+#query_db(_query)
+########################################################################################################################
+
+
+########################################################################################################################
+_query = '''
+    CREATE TABLE linemen AS
+        SELECT *
+            FROM kinetics as K
+            WHERE officialPosition = 'T' OR 
+                  officialPosition = 'G' OR 
+                  officialPosition = 'C' OR 
+                  officialPosition = 'TE'  
+            ORDER BY K.gameId ASC, K.playId ASC
+'''
+#print(_query)
+#query_db(_query)
+########################################################################################################################
+########################################################################################################################
+_query = ''' 
+        SELECT *
+            FROM linemen as L
+            WHERE L.team = 'TB' AND 
+                  L.jerseyNumber = 76 AND L.playId = 97
+            ORDER BY L.gameId ASC, L.playId ASC, L.frameId ASC
+'''
+
+print(_query)
+query_db(_query,100)
 ########################################################################################################################
