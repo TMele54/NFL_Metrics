@@ -4,10 +4,11 @@ import pandas as pd
 from plotly import graph_objects as go
 
 data_path = "data/files/"
+_data_path = "data/output//"
 
 games_df = pd.read_csv(os.path.join(data_path, "games.csv"))
 scouting_data_df = pd.read_csv(os.path.join(data_path, "pffScoutingData.csv"))
-players_df = pd.read_csv(os.path.join(data_path, "players.csv"))
+players_df = pd.read_csv(os.path.join(_data_path, "out.csv"))
 plays_df = pd.read_csv(os.path.join(data_path, "plays.csv"))
 week_df_dict = {}
 
@@ -20,6 +21,11 @@ week_df = pd.concat(week_df_dict, ignore_index=True)
 del(week_df_dict)
 
 team_info_df = pd.read_csv("data/files/TeamColors.csv")
+
+print()
+print("Made it to the defs", "\n")
+print("Made it to the defs", "\n")
+print()
 
 def getPlayerNameByNflId(nflId):
     '''
